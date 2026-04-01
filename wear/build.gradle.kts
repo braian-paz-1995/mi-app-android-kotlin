@@ -15,6 +15,32 @@ android {
         versionName = "1.0"
     }
 
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+        }
+        create("qa") {
+            dimension = "environment"
+            applicationIdSuffix = ".qa"
+            versionNameSuffix = "-qa"
+        }
+        create("prod") {
+            dimension = "environment"
+        }
+    }
+
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+        }
+    }
+
     buildFeatures {
         compose = true
     }
