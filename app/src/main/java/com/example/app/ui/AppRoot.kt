@@ -30,7 +30,7 @@ fun AppRoot(
     onAddNote: (String) -> Unit
 ) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login") {
+    NavHost(navController = navController, startDestination = "notes") {
         composable("login") {
             LoginScreen(
                 token = state.loginToken,
