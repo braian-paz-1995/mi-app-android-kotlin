@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.app.data.AppDatabase
 import com.example.app.data.NoteEntity
 import com.example.app.network.LoginRepository
+import com.example.app.nfc.NfcPayloadStore
 import com.example.app.nfc.NfcStatusProvider
 import com.example.app.repository.NoteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,7 @@ data class AppUiState(
     val loginToken: String? = null,
     val notes: List<NoteEntity> = emptyList(),
     val nfcAvailable: Boolean = false,
+    val nfcPayload: String = "",
     val error: String? = null
 )
 
@@ -27,7 +29,12 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private val loginRepository = LoginRepository()
     private val nfcStatusProvider = NfcStatusProvider(application)
 
-    private val _uiState = MutableStateFlow(AppUiState(nfcAvailable = nfcStatusProvider.isNfcAvailable()))
+    private val _uiState = MutableStateFlow(
+        AppUiState(
+            nfcAvailable = nfcStatusProvider.isNfcAvailable(),
+            nfcPayload = NfcPayloadStore.getPayload(application)
+        )
+    )
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
     init {
@@ -53,6 +60,13 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 .onFailure { throwable ->
                     _uiState.update { it.copy(error = throwable.message ?: "Error de login") }
                 }
+        }
+    }
+
+    fun updateNfcPayload(payload: String) {
+        NfcPayloadStore.setPayload(getApplication(), payload)
+        _uiState.update {
+            it.copy(nfcPayload = NfcPayloadStore.getPayload(getApplication()))
         }
     }
 }

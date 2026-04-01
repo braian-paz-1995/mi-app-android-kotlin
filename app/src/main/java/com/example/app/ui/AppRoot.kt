@@ -27,7 +27,8 @@ import androidx.navigation.compose.rememberNavController
 fun AppRoot(
     state: AppUiState,
     onLogin: (String, String) -> Unit,
-    onAddNote: (String) -> Unit
+    onAddNote: (String) -> Unit,
+    onUpdateNfcPayload: (String) -> Unit
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "notes") {
@@ -44,7 +45,8 @@ fun AppRoot(
         composable("notes") {
             NotesScreen(
                 state = state,
-                onAddNote = onAddNote
+                onAddNote = onAddNote,
+                onUpdateNfcPayload = onUpdateNfcPayload
             )
         }
     }
@@ -79,9 +81,11 @@ private fun LoginScreen(
 @Composable
 private fun NotesScreen(
     state: AppUiState,
-    onAddNote: (String) -> Unit
+    onAddNote: (String) -> Unit,
+    onUpdateNfcPayload: (String) -> Unit
 ) {
     var noteText by rememberSaveable { mutableStateOf("") }
+    var nfcText by rememberSaveable(state.nfcPayload) { mutableStateOf(state.nfcPayload) }
 
     Column(
         modifier = Modifier
@@ -91,6 +95,18 @@ private fun NotesScreen(
     ) {
         Text("Notas locales (Room)", style = MaterialTheme.typography.titleLarge)
         Text("NFC disponible: ${state.nfcAvailable}")
+        OutlinedTextField(
+            value = nfcText,
+            onValueChange = { nfcText = it },
+            label = { Text("Texto para emisor NFC (HCE)") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = { onUpdateNfcPayload(nfcText) },
+            enabled = state.nfcAvailable
+        ) {
+            Text("Guardar texto NFC")
+        }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(
                 value = noteText,
