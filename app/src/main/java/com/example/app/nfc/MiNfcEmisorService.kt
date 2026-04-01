@@ -15,7 +15,7 @@ class MiNfcEmisorService : HostApduService() {
         if (commandApdu == null) return STATUS_FAILED
 
         return if (isSelectAidCommand(commandApdu)) {
-            PAYLOAD + STATUS_SUCCESS
+            NfcPayloadStore.getPayload(this).toByteArray(Charsets.UTF_8) + STATUS_SUCCESS
         } else {
             STATUS_FAILED
         }
@@ -42,8 +42,6 @@ class MiNfcEmisorService : HostApduService() {
             0xF0.toByte(), 0x12.toByte(), 0x34.toByte(),
             0x56.toByte(), 0x78.toByte(), 0x90.toByte()
         )
-
-        private val PAYLOAD = "MI_APP_NFC_EMISOR".toByteArray()
 
         private const val SELECT_APDU_HEADER_LENGTH = 5
 

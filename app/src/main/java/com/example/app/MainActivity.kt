@@ -19,7 +19,8 @@ class MainActivity : ComponentActivity() {
             AppRoot(
                 state = state,
                 onLogin = viewModel::login,
-                onAddNote = viewModel::addNote
+                onAddNote = viewModel::addNote,
+                onUpdateNfcPayload = viewModel::updateNfcPayload
             )
         }
     }
