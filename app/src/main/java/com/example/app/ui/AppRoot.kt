@@ -28,7 +28,11 @@ fun AppRoot(
     state: AppUiState,
     onLogin: (String, String) -> Unit,
     onAddNote: (String) -> Unit,
-    onUpdateNfcPayload: (String) -> Unit
+    onUpdateNfcPayload: (String) -> Unit,
+    onOpenCamera: () -> Unit,
+    onToggleFlashlight: () -> Unit,
+    isFlashlightOn: Boolean,
+    isFlashlightAvailable: Boolean
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "notes") {
@@ -46,7 +50,11 @@ fun AppRoot(
             NotesScreen(
                 state = state,
                 onAddNote = onAddNote,
-                onUpdateNfcPayload = onUpdateNfcPayload
+                onUpdateNfcPayload = onUpdateNfcPayload,
+                onOpenCamera = onOpenCamera,
+                onToggleFlashlight = onToggleFlashlight,
+                isFlashlightOn = isFlashlightOn,
+                isFlashlightAvailable = isFlashlightAvailable
             )
         }
     }
@@ -82,7 +90,11 @@ private fun LoginScreen(
 private fun NotesScreen(
     state: AppUiState,
     onAddNote: (String) -> Unit,
-    onUpdateNfcPayload: (String) -> Unit
+    onUpdateNfcPayload: (String) -> Unit,
+    onOpenCamera: () -> Unit,
+    onToggleFlashlight: () -> Unit,
+    isFlashlightOn: Boolean,
+    isFlashlightAvailable: Boolean
 ) {
     var noteText by rememberSaveable { mutableStateOf("") }
     var nfcText by rememberSaveable(state.nfcPayload) { mutableStateOf(state.nfcPayload) }
@@ -106,6 +118,21 @@ private fun NotesScreen(
             enabled = state.nfcAvailable
         ) {
             Text("Guardar texto NFC")
+        }
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(
+                onClick = onOpenCamera,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("Prender cámara")
+            }
+            Button(
+                onClick = onToggleFlashlight,
+                enabled = isFlashlightAvailable,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(if (isFlashlightOn) "Apagar linterna" else "Prender linterna")
+            }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(
