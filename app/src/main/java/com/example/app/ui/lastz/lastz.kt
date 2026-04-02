@@ -1,4 +1,4 @@
-package com.example.mecanse.lastz
+package com.example.app.ui.lastz
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -29,7 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.mecanse.R
+import com.example.app.R
+
 
 // --- PANTALLA 3: DETALLE DE CADA CATEGORÍA ---
 @OptIn(ExperimentalMaterial3Api::class)

@@ -24,18 +24,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mecanse.PantallaFotos
-import com.example.mecanse.PantallaJuegoMenu
-import com.example.mecanse.PantallaLista
-import com.example.mecanse.WorkHourTracker
-import com.example.mecanse.infoEventos
-import com.example.mecanse.infoFarmeo
-import com.example.mecanse.infoHeroes
-import com.example.mecanse.infoInvestigaciones
-import com.example.mecanse.lastz.PantallaContenidoWikiintroduccion
-import com.example.mecanse.lastz.PantallaContenidoWikisede
-import com.example.mecanse.lastz.infoIntroduccion
-import com.example.mecanse.lastz.infoSede
+import com.example.app.ui.lastz.PantallaContenidoWikiintroduccion
+import com.example.app.ui.lastz.PantallaContenidoWikisede
+import com.example.app.ui.lastz.infoIntroduccion
+import com.example.app.ui.lastz.infoSede
 
 private object Routes {
     const val HOME = "home"
@@ -154,12 +146,6 @@ private fun HomeHubScreen(navController: NavHostController) {
     val withoutViewModel = listOf(
         "Gestor de horas" to Routes.HORARIOS,
         "Wiki Last Z (menú)" to Routes.WIKI_MENU,
-        "Introducción Last Z" to Routes.INTRODUCCION,
-        "Sede y recursos" to Routes.SEDE_RECURSOS,
-        "Héroes y ejército" to Routes.HEROES_EJERCITO,
-        "Investigaciones" to Routes.INVESTIGACIONES,
-        "Farmeo" to Routes.FARMEO,
-        "Eventos" to Routes.EVENTOS,
         "Galería de fotos" to Routes.FOTOS
     )
 

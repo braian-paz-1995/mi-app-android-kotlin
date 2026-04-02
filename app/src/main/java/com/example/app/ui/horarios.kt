@@ -1,4 +1,4 @@
-package com.example.mecanse
+package com.example.app.ui
 
 
 import android.content.Context

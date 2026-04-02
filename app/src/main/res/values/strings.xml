@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App Module</string>
-    <string name="nfc_hce_service_description">Emulador NFC Type 4 (NDEF)</string>
-    <string name="nfc_hce_aid_group_description">AID NFC Forum para lectura NDEF</string>
+    <string name="app_name">me canse</string>
+    <string name="nfc_hce_service_description">NFC HCE Service</string>
+    <string name="nfc_hce_aid_group_description">NFC AID Group</string>
 </resources>

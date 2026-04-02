@@ -1,4 +1,4 @@
-package com.example.mecanse
+package com.example.app.ui
 
 object Destinos {
     const val SPLASH = "splash"

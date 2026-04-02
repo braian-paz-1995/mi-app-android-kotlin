@@ -1,8 +1,7 @@
-package com.example.mecanse.lastz
+package com.example.app.ui.lastz
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.mecanse.R
+import com.example.app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
