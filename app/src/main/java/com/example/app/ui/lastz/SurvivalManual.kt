@@ -1,4 +1,4 @@
-package com.example.app.ui
+package com.example.app.ui.lastz
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,11 +14,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.app.ui.Destinos
 
 
 // --- PANTALLA 2: MENÚ DE LA WIKI (ESTILO LISTA) ---
 @Composable
-fun PantallaJuegoMenu(navController: NavHostController) {
+fun SurvivalManual(navController: NavHostController) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally

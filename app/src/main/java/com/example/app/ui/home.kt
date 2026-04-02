@@ -17,10 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.app.R
-@Composable
-fun home(navController: NavHostController) {
+import com.example.app.R@Composable
+fun HomeLucasScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()) {
+
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = null,
@@ -29,18 +29,28 @@ fun home(navController: NavHostController) {
         )
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(24.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("MeCanse App", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold, color = Color.White)
+
+            Text(
+                "MeCanse App",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
+            )
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Botón Horas
+            // ✅ HORARIOS
             Button(
-                onClick = { navController.navigate(Destinos.PRINCIPAL) },
-                modifier = Modifier.fillMaxWidth().height(60.dp)
+                onClick = { navController.navigate("horarios") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
             ) {
                 Icon(Icons.Default.Build, null)
                 Spacer(modifier = Modifier.width(10.dp))
@@ -49,11 +59,15 @@ fun home(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón Wiki
+            // ✅ WIKI
             Button(
-                onClick = { navController.navigate(Destinos.JUEGO_MENU) },
-                modifier = Modifier.fillMaxWidth().height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                onClick = { navController.navigate("wiki_menu") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
             ) {
                 Icon(Icons.Default.PlayArrow, null)
                 Spacer(modifier = Modifier.width(10.dp))
@@ -62,11 +76,15 @@ fun home(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // NUEVO BOTÓN FOTOS
+            // ✅ FOTOS
             Button(
-                onClick = { navController.navigate(Destinos.FOTOS) },
-                modifier = Modifier.fillMaxWidth().height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
+                onClick = { navController.navigate("fotos") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF4CAF50)
+                )
             ) {
                 Icon(Icons.Default.Place, null)
                 Spacer(modifier = Modifier.width(10.dp))

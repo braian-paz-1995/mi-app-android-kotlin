@@ -26,7 +26,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.app.ui.lastz.PantallaContenidoWikiintroduccion
 import com.example.app.ui.lastz.PantallaContenidoWikisede
+import com.example.app.ui.lastz.PantallaLista
+import com.example.app.ui.lastz.SurvivalManual
+import com.example.app.ui.lastz.infoEventos
+import com.example.app.ui.lastz.infoFarmeo
+import com.example.app.ui.lastz.infoHeroes
 import com.example.app.ui.lastz.infoIntroduccion
+import com.example.app.ui.lastz.infoInvestigaciones
 import com.example.app.ui.lastz.infoSede
 
 private object Routes {
@@ -42,6 +48,7 @@ private object Routes {
     const val FARMEO = "farmeo"
     const val EVENTOS = "eventos"
     const val FOTOS = "fotos"
+    const val HOMELUCAS = "homeLucas"
 }
 
 @Composable
@@ -57,9 +64,12 @@ fun AppRoot(
 ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Routes.HOME) {
+    NavHost(navController = navController, startDestination = Routes.HOMELUCAS) {
         composable(Routes.HOME) {
             HomeHubScreen(navController)
+        }
+        composable(Routes.HOMELUCAS) {
+            HomeLucasScreen(navController)
         }
         composable(Routes.LOGIN) {
             LoginScreen(
@@ -86,7 +96,7 @@ fun AppRoot(
             WorkHourTracker(context = LocalContext.current, navController = navController)
         }
         composable(Routes.WIKI_MENU) {
-            PantallaJuegoMenu(navController = navController)
+            SurvivalManual(navController = navController)
         }
         composable(Routes.INTRODUCCION) {
             PantallaContenidoWikiintroduccion(
@@ -146,7 +156,8 @@ private fun HomeHubScreen(navController: NavHostController) {
     val withoutViewModel = listOf(
         "Gestor de horas" to Routes.HORARIOS,
         "Wiki Last Z (menú)" to Routes.WIKI_MENU,
-        "Galería de fotos" to Routes.FOTOS
+        "Galería de fotos" to Routes.FOTOS,
+        "Home Lucas" to Routes.HOMELUCAS
     )
 
     LazyColumn(
