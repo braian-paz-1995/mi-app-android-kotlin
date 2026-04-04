@@ -1,0 +1,339 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - develop
+
+variables:
+- name: 'baseDirectory'
+  value: '$(system.defaultWorkingDirectory)/'
+- group: 'REVOPOS-Compact Pipeline Build'
+
+jobs:
+  ####################################################################
+  #                     Version Name + Build Id                      #
+  ####################################################################
+  - job: BuildVersionName
+    displayName: Build version name
+    pool:
+      vmImage: macOs-latest
+    variables:
+      - name: 'gradleFilePath'
+        value: '$(baseDirectory)/app/build.gradle.kts'
+        readonly: true
+    steps:
+      - task: Bash@3
+        displayName: Add build id to version
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Variables
+            BuildId="$(Build.BuildId)"
+            FilePath="$(gradleFilePath)"
+
+            echo "Setting build id '$BuildId' to build config file '$FilePath'"
+
+            # Appends everything inside quotes after the versionName tag with the BuildId variable
+            sed -i.bak -E "s|versionName = \"(.*)\"|versionName = \"\1.$BuildId\"|" "$FilePath"
+
+      - task: Bash@3
+        name: extractVersion
+        displayName: Extract version code and name
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Define the path to the build.gradle file
+            FilePath="$(gradleFilePath)"
+
+            # Extract Version Code from defaultConfig block
+            versionCode=$(awk '/defaultConfig {/,/}/' $FilePath | grep 'versionCode =' | awk '{print $NF}')
+            # Extract Version Name from defaultConfig block. Removes quotes
+            versionName=$(awk '/defaultConfig {/,/}/' $FilePath | grep 'versionName =' | awk '{print $NF}' | tr -d \")
+
+            echo "Version Code: $versionCode"
+            echo "Version Name: $versionName"
+            
+            # Set output variables
+            echo "##vso[task.setvariable variable=versionCode;isoutput=true;isreadonly=true]$versionCode"
+            echo "##vso[task.setvariable variable=versionName;isoutput=true;isreadonly=true]$versionName"
+
+      - task: PublishPipelineArtifact@1
+        displayName: Copy build.gradle
+        inputs:
+          targetPath: '$(gradleFilePath)'
+          ArtifactName: '.build'
+
+  ####################################################################
+  #                              Newland                             #
+  ####################################################################
+  - job: BuildNewlandRelease  
+    displayName: Build NEWLAND release
+    dependsOn: BuildVersionName
+    pool:
+      vmImage: macOs-latest
+    variables:
+      - name: 'outputDirectory'
+        value: '$(system.defaultWorkingDirectory)/app/build/outputs/apk/newland/release'
+      - name: 'versionCode'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionCode'] ]
+        readonly: true
+      - name: 'versionName'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionName'] ]
+        readonly: true
+    steps:
+      - task: JavaToolInstaller@0
+        displayName: Use Java 11
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+      - task: Bash@3
+        displayName: Make gradlew executable
+        inputs:
+          targetType: 'inline'
+          script: 'chmod +x gradlew'
+          workingDirectory: '$(baseDirectory)'
+
+      # Download files from previous job
+      - task: DownloadPipelineArtifact@2
+        displayName: Get build gradle file
+        inputs:
+          buildType: 'current'
+          artifactName: '.build'
+          itemPattern: 'build.gradle.kts'
+          downloadPath: '$(baseDirectory)/app'
+          
+      - task: Gradle@3
+        displayName: Gradle build Newland release
+        inputs:
+          gradleWrapperFile: '$(baseDirectory)/gradlew'
+          workingDirectory: '$(baseDirectory)'
+          tasks: 'assembleNewlandRelease'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.17'
+          gradleOptions: '-Xmx3072m'
+          sonarQubeRunAnalysis: false
+          spotBugsAnalysis: false
+
+      - task: AndroidSigning@3
+        displayName: App signing
+        inputs:
+          apkFiles: '$(outputDirectory)/*.apk' 
+          apksign: true
+          apksignerKeystoreFile: 'atio.jks'
+          apksignerKeystorePassword: $(keystore.password)
+          apksignerKeystoreAlias: $(key.alias)
+          apksignerKeyPassword: $(key.password)
+          zipalign: true
+
+      - task: Bash@3
+        displayName: Rename Newland apk
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Rename application to contain version name
+            sourcePath="$(outputDirectory)/app-newland-release-unsigned.apk"
+            targetPath="$(outputDirectory)/revopos-compact_newland_v$(versionName)_vc$(versionCode).apk"
+
+            mv $sourcePath $targetPath
+
+      # Copy application
+      - task: CopyFiles@2
+        displayName: Copy application
+        inputs:
+          SourceFolder: '$(outputDirectory)'
+          Contents: '**/*.apk'
+          TargetFolder: '$(build.artifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'revopos-compact_newland_v$(versionName)_VC$(versionCode)'
+          publishLocation: 'Container'      
+
+  ####################################################################
+  #                               UROVO                              #
+  ####################################################################
+  - job: BuildUrovoRelease  
+    displayName: Build UROVO release
+    dependsOn: BuildVersionName
+    pool:
+      vmImage: macOs-latest
+    variables:
+      - name: 'outputDirectory'
+        value: '$(system.defaultWorkingDirectory)/app/build/outputs/apk/urovo/release'
+      - name: 'versionCode'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionCode'] ]
+        readonly: true
+      - name: 'versionName'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionName'] ]
+        readonly: true
+    steps:
+      - task: JavaToolInstaller@0
+        displayName: Use Java 11
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+      - task: Bash@3
+        displayName: Make gradlew executable
+        inputs:
+          targetType: 'inline'
+          script: 'chmod +x gradlew'
+          workingDirectory: '$(baseDirectory)'
+
+      # Download files from previous job
+      - task: DownloadPipelineArtifact@2
+        displayName: Get build gradle file
+        inputs:
+          buildType: 'current'
+          artifactName: '.build'
+          itemPattern: 'build.gradle.kts'
+          downloadPath: '$(baseDirectory)/app'
+
+      - task: Gradle@3
+        displayName: Gradle build Urovo release
+        inputs:
+          gradleWrapperFile: '$(baseDirectory)/gradlew'
+          workingDirectory: '$(baseDirectory)'
+          tasks: 'assembleUrovoRelease'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.17'
+          gradleOptions: '-Xmx3072m'
+          sonarQubeRunAnalysis: false
+          spotBugsAnalysis: false
+
+      - task: AndroidSigning@3
+        displayName: App signing
+        inputs:
+          apkFiles: '$(outputDirectory)/*.apk' 
+          apksign: true
+          apksignerKeystoreFile: 'atio.jks'
+          apksignerKeystorePassword: $(keystore.password)
+          apksignerKeystoreAlias: $(key.alias)
+          apksignerKeyPassword: $(key.password)
+          zipalign: true
+
+      - task: Bash@3
+        displayName: Rename Urovo apk
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Rename application to contain version name
+            sourcePath="$(outputDirectory)/app-urovo-release-unsigned.apk"
+            targetPath="$(outputDirectory)/revopos-compact_urovo_v$(versionName)_vc$(versionCode).apk"
+
+            mv $sourcePath $targetPath
+
+      # Copy application
+      - task: CopyFiles@2
+        displayName: Copy application
+        inputs:
+          SourceFolder: '$(outputDirectory)'
+          Contents: '**/*.apk'
+          TargetFolder: '$(build.artifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: Publish artifacts
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'revopos-compact_urovo_v$(versionName)_VC$(versionCode)'
+          publishLocation: 'Container'
+
+  ####################################################################
+  #                               T650P                              #
+  ####################################################################
+  - job: BuildT650pRelease
+    displayName: Build T650P release
+    dependsOn: BuildVersionName
+    pool:
+      vmImage: macOs-latest
+    variables:
+      - name: 'outputDirectory'
+        value: '$(system.defaultWorkingDirectory)/app/build/outputs/apk/t650p/release'
+      - name: 'versionCode'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionCode'] ]
+        readonly: true
+      - name: 'versionName'
+        value: $[ dependencies.BuildVersionName.outputs['extractVersion.versionName'] ]
+        readonly: true
+    steps:
+      - task: JavaToolInstaller@0
+        displayName: Use Java 11
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - task: Bash@3
+        displayName: Make gradlew executable
+        inputs:
+          targetType: 'inline'
+          script: 'chmod +x gradlew'
+          workingDirectory: '$(baseDirectory)'
+
+      # Download files from previous job
+      - task: DownloadPipelineArtifact@2
+        displayName: Get build gradle file
+        inputs:
+          buildType: 'current'
+          artifactName: '.build'
+          itemPattern: 'build.gradle.kts'
+          downloadPath: '$(baseDirectory)/app'
+
+      - task: Gradle@3
+        displayName: Gradle build T650P release
+        inputs:
+          gradleWrapperFile: '$(baseDirectory)/gradlew'
+          workingDirectory: '$(baseDirectory)'
+          tasks: 'assembleT650pRelease'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.17'
+          gradleOptions: '-Xmx3072m'
+          sonarQubeRunAnalysis: false
+          spotBugsAnalysis: false
+
+      - task: AndroidSigning@3
+        displayName: App signing
+        inputs:
+          apkFiles: '$(outputDirectory)/*.apk'
+          apksign: true
+          apksignerKeystoreFile: 'atio.jks'
+          apksignerKeystorePassword: $(keystore.password)
+          apksignerKeystoreAlias: $(key.alias)
+          apksignerKeyPassword: $(key.password)
+          zipalign: true
+
+      - task: Bash@3
+        displayName: Rename T650P apk
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Rename application to contain version name
+            sourcePath="$(outputDirectory)/app-t650p-release-unsigned.apk"
+            targetPath="$(outputDirectory)/revopos-compact_t650p_v$(versionName)_vc$(versionCode).apk"
+
+            mv $sourcePath $targetPath
+
+      # Copy application
+      - task: CopyFiles@2
+        displayName: Copy application
+        inputs:
+          SourceFolder: '$(outputDirectory)'
+          Contents: '**/*.apk'
+          TargetFolder: '$(build.artifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: Publish artifacts
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'revopos-compact_t650p_v$(versionName)_VC$(versionCode)'
+          publishLocation: 'Container'

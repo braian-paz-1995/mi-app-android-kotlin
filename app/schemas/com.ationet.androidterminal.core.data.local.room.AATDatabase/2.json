@@ -1,0 +1,2621 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "efb4c241e0c7588ef5dce0c7c416551b",
+    "entities": [
+      {
+        "tableName": "products",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` TEXT NOT NULL, `name` TEXT NOT NULL, `unit_price` REAL NOT NULL, `created_at` TEXT NOT NULL, `updated_at` TEXT NOT NULL, `is_fuel` INTEGER NOT NULL, `is_sku` INTEGER NOT NULL, `order` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unitPrice",
+            "columnName": "unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateAt",
+            "columnName": "updated_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFuel",
+            "columnName": "is_fuel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSku",
+            "columnName": "is_sku",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "order",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "receipt",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `copy` INTEGER NOT NULL, `controller_owner` TEXT NOT NULL, `created_date_time` TEXT NOT NULL, `batch_id` INTEGER NOT NULL, `pump_id` INTEGER NOT NULL DEFAULT 0, `header_title` TEXT NOT NULL, `header_subtitle` TEXT NOT NULL, `footer_footer` TEXT NOT NULL, `footer_bottom_name` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_name` TEXT NOT NULL, `site_name` TEXT NOT NULL, `site_code` TEXT NOT NULL, `site_address` TEXT NOT NULL, `site_cuit` TEXT NOT NULL, `print_driver` INTEGER NOT NULL, `print_vehicle` INTEGER NOT NULL, `print_company_name` INTEGER NOT NULL, `print_primary_track` INTEGER NOT NULL, `print_secondary_track` INTEGER NOT NULL, `print_transaction_details` INTEGER NOT NULL, `print_product_in_columns` INTEGER NOT NULL, `print_invoice_number` INTEGER NOT NULL, `response_code` TEXT, `response_text` TEXT NOT NULL, `terminal_id` TEXT NOT NULL, `authorization_code` TEXT, `invoice` TEXT, `tsn` TEXT, `primary_track` TEXT NOT NULL, `secondary_track` TEXT, `currency_symbol` TEXT NOT NULL, `unit_of_measure` TEXT NOT NULL, `transaction_amount` REAL NOT NULL DEFAULT 0.0, `company_name` TEXT, `customer_pan` TEXT, `customer_plate` TEXT, `customer_driver_name` TEXT, `customer_driver_id` TEXT, `customer_vehicle_code` TEXT, `product_input_type` TEXT NOT NULL, `product_name` TEXT NOT NULL, `product_code` TEXT NOT NULL, `product_unit_price` REAL, `product_quantity` REAL, `product_amount` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copy",
+            "columnName": "copy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerOwner",
+            "columnName": "controller_owner",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdDateTime",
+            "columnName": "created_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pumpId",
+            "columnName": "pump_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "header.title",
+            "columnName": "header_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "header.subtitle",
+            "columnName": "header_subtitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "footer.footer",
+            "columnName": "footer_footer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "footer.bottomNote",
+            "columnName": "footer_bottom_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionLine.dateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionLine.name",
+            "columnName": "transaction_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "site.name",
+            "columnName": "site_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "site.code",
+            "columnName": "site_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "site.address",
+            "columnName": "site_address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "site.cuit",
+            "columnName": "site_cuit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printDriver",
+            "columnName": "print_driver",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printVehicle",
+            "columnName": "print_vehicle",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printCompanyName",
+            "columnName": "print_company_name",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printPrimaryTrack",
+            "columnName": "print_primary_track",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printSecondaryTrack",
+            "columnName": "print_secondary_track",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printTransactionDetails",
+            "columnName": "print_transaction_details",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printProductInColumns",
+            "columnName": "print_product_in_columns",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "printConfiguration.printInvoiceNumber",
+            "columnName": "print_invoice_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.responseCode",
+            "columnName": "response_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.responseText",
+            "columnName": "response_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.terminalId",
+            "columnName": "terminal_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.invoice",
+            "columnName": "invoice",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.transactionSequenceNumber",
+            "columnName": "tsn",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.secondaryTrack",
+            "columnName": "secondary_track",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.currencySymbol",
+            "columnName": "currency_symbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.unitOfMeasure",
+            "columnName": "unit_of_measure",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.transactionAmount",
+            "columnName": "transaction_amount",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0.0"
+          },
+          {
+            "fieldPath": "transactionData.receiptData.companyName",
+            "columnName": "company_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.receiptData.customerPan",
+            "columnName": "customer_pan",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.receiptData.customerPlate",
+            "columnName": "customer_plate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.receiptData.customerDriverName",
+            "columnName": "customer_driver_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.receiptData.customerDriverId",
+            "columnName": "customer_driver_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.receiptData.customerVehicleCode",
+            "columnName": "customer_vehicle_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "product_unit_price",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "product_quantity",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "product_amount",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_receipt_batch_id",
+            "unique": false,
+            "columnNames": [
+              "batch_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_receipt_batch_id` ON `${TABLE_NAME}` (`batch_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "receipt_product_modifiers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type` TEXT NOT NULL, `class` TEXT NOT NULL, `value` REAL NOT NULL, `base` REAL NOT NULL DEFAULT 0.0, `total` REAL NOT NULL DEFAULT 0.0, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `receipt_id` INTEGER NOT NULL, FOREIGN KEY(`receipt_id`) REFERENCES `receipt`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifierClass",
+            "columnName": "class",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "base",
+            "columnName": "base",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0.0"
+          },
+          {
+            "fieldPath": "total",
+            "columnName": "total",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0.0"
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "receiptId",
+            "columnName": "receipt_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_receipt_product_modifiers_receipt_id",
+            "unique": false,
+            "columnNames": [
+              "receipt_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_receipt_product_modifiers_receipt_id` ON `${TABLE_NAME}` (`receipt_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "receipt",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "receipt_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "pre_authorization",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `created_at` TEXT NOT NULL, `updated_at` TEXT NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `primary_track` TEXT NOT NULL, `secondary_track` TEXT, `authorization_code` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `invoice` TEXT NOT NULL, `local_datetime` TEXT NOT NULL, `authorized_amount` REAL, `authorized_quantity` REAL, `authorized_price` REAL, `od_transaction_sequence_number` INTEGER NOT NULL, `od_authorization_code` TEXT NOT NULL, `od_transaction_code` TEXT NOT NULL, `od_local_transaction_date` TEXT, `od_local_transaction_time` TEXT, `odometer` TEXT, `engine_hours` TEXT, `driver_id` TEXT, `vehicle_id` TEXT, `AtionetVisionVehicleId` TEXT, `miscellaneous` TEXT, `trailer_number` TEXT, `truck_unit_number` TEXT, `attendant_id` TEXT, `primary_pin` TEXT, `secondary_pin` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "identificationData.primaryTrack",
+            "columnName": "primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "identificationData.secondaryTrack",
+            "columnName": "secondary_track",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "authorizationData.authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationData.transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationData.invoice",
+            "columnName": "invoice",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationData.localDateTime",
+            "columnName": "local_datetime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationData.amount",
+            "columnName": "authorized_amount",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "authorizationData.quantity",
+            "columnName": "authorized_quantity",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "authorizationData.unitPrice",
+            "columnName": "authorized_price",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "originalData.transactionSequenceNumber",
+            "columnName": "od_transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalData.authorizationCode",
+            "columnName": "od_authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalData.transactionCode",
+            "columnName": "od_transaction_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalData.localTransactionDate",
+            "columnName": "od_local_transaction_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "originalData.localTransactionTime",
+            "columnName": "od_local_transaction_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.odometer",
+            "columnName": "odometer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.engineHours",
+            "columnName": "engine_hours",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.driverId",
+            "columnName": "driver_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.vehicleId",
+            "columnName": "vehicle_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.AtionetVisionVehicleId",
+            "columnName": "AtionetVisionVehicleId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.miscellaneous",
+            "columnName": "miscellaneous",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.trailerNumber",
+            "columnName": "trailer_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.truckUnitNumber",
+            "columnName": "truck_unit_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.attendantId",
+            "columnName": "attendant_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.primaryPin",
+            "columnName": "primary_pin",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customerData.secondaryPin",
+            "columnName": "secondary_pin",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_pre_authorization_authorization_code_batch_id_local_datetime",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "local_datetime"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pre_authorization_authorization_code_batch_id_local_datetime` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `local_datetime`)"
+          },
+          {
+            "name": "index_pre_authorization_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pre_authorization_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_pre_authorization",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pump_id` INTEGER NOT NULL, `sale_id` INTEGER, `state` TEXT NOT NULL DEFAULT 'PRESET_SENT', `pre_authorization_id` INTEGER NOT NULL, `amount` REAL NOT NULL DEFAULT 0.0, `quantity` REAL NOT NULL DEFAULT 0.0, `product_grade` TEXT, `product_name` TEXT, `product_corporate_number` TEXT, `product_unit_price` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pumpId",
+            "columnName": "pump_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saleId",
+            "columnName": "sale_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'PRESET_SENT'"
+          },
+          {
+            "fieldPath": "preAuthorizationId",
+            "columnName": "pre_authorization_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0.0"
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0.0"
+          },
+          {
+            "fieldPath": "product.grade",
+            "columnName": "product_grade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "product.name",
+            "columnName": "product_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "product.corporateNumber",
+            "columnName": "product_corporate_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "product.unitPrice",
+            "columnName": "product_unit_price",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "standalone_pre_authorization",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `product_id` INTEGER NOT NULL, `product_code` TEXT NOT NULL, `product_name` TEXT NOT NULL, `product_unit_price` REAL NOT NULL, `pre_authorization_id` INTEGER NOT NULL, `input_type` TEXT NOT NULL, FOREIGN KEY(`pre_authorization_id`) REFERENCES `pre_authorization`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "product_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productCode",
+            "columnName": "product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productName",
+            "columnName": "product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productUnitPrice",
+            "columnName": "product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preAuthorizationId",
+            "columnName": "pre_authorization_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inputType",
+            "columnName": "input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_standalone_pre_authorization_pre_authorization_id",
+            "unique": false,
+            "columnNames": [
+              "pre_authorization_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_standalone_pre_authorization_pre_authorization_id` ON `${TABLE_NAME}` (`pre_authorization_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "pre_authorization",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "pre_authorization_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "completion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_completion_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_completion_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_completion_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_completion_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_completion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sale_id` INTEGER, `completion_id` INTEGER NOT NULL, FOREIGN KEY(`completion_id`) REFERENCES `completion`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saleId",
+            "columnName": "sale_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "completionId",
+            "columnName": "completion_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_completion_completion_id",
+            "unique": false,
+            "columnNames": [
+              "completion_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_completion_completion_id` ON `${TABLE_NAME}` (`completion_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "completion",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "completion_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "sale",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sale_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sale_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_sale_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sale_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_sale",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_sale_id` INTEGER NOT NULL, `sale_id` INTEGER NOT NULL, FOREIGN KEY(`sale_id`) REFERENCES `sale`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionSaleId",
+            "columnName": "fusion_sale_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saleId",
+            "columnName": "sale_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_sale_sale_id",
+            "unique": false,
+            "columnNames": [
+              "sale_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_sale_sale_id` ON `${TABLE_NAME}` (`sale_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "sale",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "sale_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "rechargecc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_rechargecc_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_rechargecc_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_rechargecc_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_rechargecc_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_rechargecc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_rechargecc_id` INTEGER NOT NULL, `rechargecc_id` INTEGER NOT NULL, FOREIGN KEY(`rechargecc_id`) REFERENCES `rechargecc`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionRechargeCCId",
+            "columnName": "fusion_rechargecc_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rechargeCCId",
+            "columnName": "rechargecc_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_rechargecc_rechargecc_id",
+            "unique": false,
+            "columnNames": [
+              "rechargecc_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_rechargecc_rechargecc_id` ON `${TABLE_NAME}` (`rechargecc_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "rechargecc",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "rechargecc_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "reversecc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_reversecc_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_reversecc_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_reversecc_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_reversecc_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_reversecc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_reversecc_id` INTEGER NOT NULL, `reversecc_id` INTEGER NOT NULL, FOREIGN KEY(`reversecc_id`) REFERENCES `reversecc`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionReverseCCId",
+            "columnName": "fusion_reversecc_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reverseCCId",
+            "columnName": "reversecc_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_reversecc_reversecc_id",
+            "unique": false,
+            "columnNames": [
+              "reversecc_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_reversecc_reversecc_id` ON `${TABLE_NAME}` (`reversecc_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "reversecc",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "reversecc_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "batch",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transaction_date_time` TEXT NOT NULL, `state` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "loyalty_batch",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transaction_date_time` TEXT NOT NULL, `state` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "void_transaction",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transaction_id` INTEGER NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionId",
+            "columnName": "transaction_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "loyalty_void_transaction",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transaction_id` INTEGER NOT NULL, `authorization_code` TEXT NOT NULL, `old_Authorization_Code` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionId",
+            "columnName": "transaction_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oldAuthorizationCode",
+            "columnName": "old_Authorization_Code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "paymentMethod",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code` INTEGER NOT NULL, `name` TEXT NOT NULL, `order_value` INTEGER NOT NULL, `is_cc` INTEGER NOT NULL DEFAULT 0, `is_loyalty` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "order_value",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCC",
+            "columnName": "is_cc",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "isLoyalty",
+            "columnName": "is_loyalty",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "modules_capability",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `terminalId` TEXT NOT NULL, `supportsCardsB2C` INTEGER NOT NULL, `supportsGiftCard` INTEGER NOT NULL, `supportsFleet` INTEGER NOT NULL, `supportsLoyalty` INTEGER NOT NULL, `supportsOffline` INTEGER NOT NULL, `lastVersion` INTEGER NOT NULL, `fetchedAtMillis` INTEGER NOT NULL, `expiresAtMillis` INTEGER NOT NULL, `rawRequestJson` TEXT, `nativeUrl` TEXT NOT NULL, `rawResponseJson` TEXT, `lastAttemptOk` INTEGER, `lastHttpStatus` INTEGER, `lastErrorMessage` TEXT, `responseCode` TEXT, `responseText` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "terminalId",
+            "columnName": "terminalId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supportsCardsB2C",
+            "columnName": "supportsCardsB2C",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supportsGiftCard",
+            "columnName": "supportsGiftCard",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supportsFleet",
+            "columnName": "supportsFleet",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supportsLoyalty",
+            "columnName": "supportsLoyalty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "supportsOffline",
+            "columnName": "supportsOffline",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastVersion",
+            "columnName": "lastVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fetchedAtMillis",
+            "columnName": "fetchedAtMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiresAtMillis",
+            "columnName": "expiresAtMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rawRequestJson",
+            "columnName": "rawRequestJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nativeUrl",
+            "columnName": "nativeUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rawResponseJson",
+            "columnName": "rawResponseJson",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastAttemptOk",
+            "columnName": "lastAttemptOk",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastHttpStatus",
+            "columnName": "lastHttpStatus",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastErrorMessage",
+            "columnName": "lastErrorMessage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "responseCode",
+            "columnName": "responseCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "responseText",
+            "columnName": "responseText",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "loyaltyAccumulation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL, `transaction_product_amount` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_loyaltyAccumulation_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyAccumulation_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_loyaltyAccumulation_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyAccumulation_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_LoyaltyAccumulation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_LoyaltyAccumulation_id` INTEGER NOT NULL, `loyaltyAccumulation_id` INTEGER NOT NULL, FOREIGN KEY(`loyaltyAccumulation_id`) REFERENCES `loyaltyAccumulation`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionLoyaltyAccumulationId",
+            "columnName": "fusion_LoyaltyAccumulation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loyaltyAccumulationId",
+            "columnName": "loyaltyAccumulation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_LoyaltyAccumulation_loyaltyAccumulation_id",
+            "unique": false,
+            "columnNames": [
+              "loyaltyAccumulation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_LoyaltyAccumulation_loyaltyAccumulation_id` ON `${TABLE_NAME}` (`loyaltyAccumulation_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyaltyAccumulation",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "loyaltyAccumulation_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "loyaltyBalanceEnquiry",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_loyaltyBalanceEnquiry_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyBalanceEnquiry_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_loyaltyBalanceEnquiry_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyBalanceEnquiry_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_loyaltyBalanceEnquiry",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_loyaltyBalanceEnquiry_id` INTEGER NOT NULL, `loyaltyBalanceEnquiry_id` INTEGER NOT NULL, FOREIGN KEY(`loyaltyBalanceEnquiry_id`) REFERENCES `loyaltyBalanceEnquiry`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionLoyaltyBalanceEnquiryId",
+            "columnName": "fusion_loyaltyBalanceEnquiry_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loyaltyBalanceEnquiryId",
+            "columnName": "loyaltyBalanceEnquiry_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_loyaltyBalanceEnquiry_loyaltyBalanceEnquiry_id",
+            "unique": false,
+            "columnNames": [
+              "loyaltyBalanceEnquiry_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_loyaltyBalanceEnquiry_loyaltyBalanceEnquiry_id` ON `${TABLE_NAME}` (`loyaltyBalanceEnquiry_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyaltyBalanceEnquiry",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "loyaltyBalanceEnquiry_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "loyaltyPointsRedemption",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL, `transaction_product_amount` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.primaryTrack",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_loyaltyPointsRedemption_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyPointsRedemption_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_loyaltyPointsRedemption_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyPointsRedemption_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_loyaltyPointsRedemption",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_loyaltyPointsRedemption_id` INTEGER NOT NULL, `loyaltyPointsRedemption_id` INTEGER NOT NULL, FOREIGN KEY(`loyaltyPointsRedemption_id`) REFERENCES `loyaltyPointsRedemption`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionLoyaltyPointsRedemptionId",
+            "columnName": "fusion_loyaltyPointsRedemption_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loyaltyPointsRedemptionId",
+            "columnName": "loyaltyPointsRedemption_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_loyaltyPointsRedemption_loyaltyPointsRedemption_id",
+            "unique": false,
+            "columnNames": [
+              "loyaltyPointsRedemption_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_loyaltyPointsRedemption_loyaltyPointsRedemption_id` ON `${TABLE_NAME}` (`loyaltyPointsRedemption_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyaltyPointsRedemption",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "loyaltyPointsRedemption_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "loyaltyRewardsRedemption",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `authorization_code` TEXT NOT NULL, `transaction_date_time` TEXT NOT NULL, `transaction_sequence_number` INTEGER NOT NULL, `batch_id` INTEGER NOT NULL, `controller_type` TEXT NOT NULL DEFAULT 'STAND_ALONE', `transaction_primary_track` TEXT NOT NULL, `transaction_payment_method` TEXT NOT NULL, `transaction_product_input_type` TEXT NOT NULL, `transaction_product_name` TEXT NOT NULL, `transaction_product_code` TEXT NOT NULL, `transaction_product_unit_price` REAL NOT NULL, `transaction_product_quantity` REAL NOT NULL, `transaction_product_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authorizationCode",
+            "columnName": "authorization_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionDateTime",
+            "columnName": "transaction_date_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionSequenceNumber",
+            "columnName": "transaction_sequence_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "batchId",
+            "columnName": "batch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "controllerType",
+            "columnName": "controller_type",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'STAND_ALONE'"
+          },
+          {
+            "fieldPath": "transactionData.withdrawalCode",
+            "columnName": "transaction_primary_track",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.paymentMethod",
+            "columnName": "transaction_payment_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.inputType",
+            "columnName": "transaction_product_input_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.name",
+            "columnName": "transaction_product_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.code",
+            "columnName": "transaction_product_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.unitPrice",
+            "columnName": "transaction_product_unit_price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.quantity",
+            "columnName": "transaction_product_quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "transactionData.product.amount",
+            "columnName": "transaction_product_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_loyaltyRewardsRedemption_authorization_code_batch_id_transaction_date_time",
+            "unique": false,
+            "columnNames": [
+              "authorization_code",
+              "batch_id",
+              "transaction_date_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyRewardsRedemption_authorization_code_batch_id_transaction_date_time` ON `${TABLE_NAME}` (`authorization_code`, `batch_id`, `transaction_date_time`)"
+          },
+          {
+            "name": "index_loyaltyRewardsRedemption_controller_type",
+            "unique": false,
+            "columnNames": [
+              "controller_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_loyaltyRewardsRedemption_controller_type` ON `${TABLE_NAME}` (`controller_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "fusion_loyaltyRewardsRedemption",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_loyaltyRewardsRedemption_id` INTEGER NOT NULL, `loyaltyRewardsRedemption_id` INTEGER NOT NULL, FOREIGN KEY(`loyaltyRewardsRedemption_id`) REFERENCES `loyaltyRewardsRedemption`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionLoyaltyRewardsRedemptionId",
+            "columnName": "fusion_loyaltyRewardsRedemption_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "loyaltyRewardsRedemptionId",
+            "columnName": "loyaltyRewardsRedemption_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_loyaltyRewardsRedemption_loyaltyRewardsRedemption_id",
+            "unique": false,
+            "columnNames": [
+              "loyaltyRewardsRedemption_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_loyaltyRewardsRedemption_loyaltyRewardsRedemption_id` ON `${TABLE_NAME}` (`loyaltyRewardsRedemption_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyaltyRewardsRedemption",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "loyaltyRewardsRedemption_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "fusion_pump_lock",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fusion_sale_id` INTEGER NOT NULL, `terminal_id` TEXT NOT NULL, `status` TEXT NOT NULL, `updated_at` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fusionSaleId",
+            "columnName": "fusion_sale_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "terminalId",
+            "columnName": "terminal_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_fusion_pump_lock_fusion_sale_id",
+            "unique": false,
+            "columnNames": [
+              "fusion_sale_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_pump_lock_fusion_sale_id` ON `${TABLE_NAME}` (`fusion_sale_id`)"
+          },
+          {
+            "name": "index_fusion_pump_lock_terminal_id",
+            "unique": false,
+            "columnNames": [
+              "terminal_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_fusion_pump_lock_terminal_id` ON `${TABLE_NAME}` (`terminal_id`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [
+      {
+        "viewName": "receipt_view",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT id,\n       transaction_name,\n       transaction_date_time,\n       authorization_code,\n       customer_vehicle_code,\n       customer_driver_name,\n       product_amount,\n       product_quantity,\n       unit_of_measure,\n       currency_symbol,\n       created_date_time,\n       response_code,\n       response_text,\n       tsn,\n       batch_id, \n       pump_id, \n       controller_owner,\n       copy\nFROM receipt"
+      },
+      {
+        "viewName": "transaction_view",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n\tC.id,\n\tC.authorization_code,\n\tC.transaction_sequence_number,\n\tC.transaction_date_time,\n\tC.transaction_primary_track,\n\tC.batch_id,\n\tC.controller_type,\n\tC.transaction_product_input_type,\n\tC.transaction_product_name,\n\tC.transaction_product_code,\n\tC.transaction_product_unit_price,\n\tC.transaction_product_quantity,\n\tC.transaction_product_amount,\n\t'LoyaltyAccumulation' AS type\nFROM\n\tloyaltyAccumulation AS C\nUNION ALL\nSELECT\n\tC.id,\n\tC.authorization_code,\n\tC.transaction_sequence_number,\n\tC.transaction_date_time,\n\tC.transaction_primary_track,\n\tC.batch_id,\n\tC.controller_type,\n\tC.transaction_product_input_type,\n\tC.transaction_product_name,\n\tC.transaction_product_code,\n\tC.transaction_product_unit_price,\n\tC.transaction_product_quantity,\n\tC.transaction_product_amount,\n\t'Completion' AS type\nFROM\n\tcompletion AS C\nUNION ALL\nSELECT\n\tS.id,\n\tS.authorization_code,\n\tS.transaction_sequence_number,\n\tS.transaction_date_time,\n\tS.transaction_primary_track,\n\tS.batch_id,\n\tS.controller_type,\n\tS.transaction_product_input_type,\n\tS.transaction_product_name,\n\tS.transaction_product_code,\n\tS.transaction_product_unit_price,\n\tS.transaction_product_quantity,\n\tS.transaction_product_amount,\n\t'Sale' AS type\nFROM\n\tsale AS S\nUNION ALL\nSELECT\n\tP.id,\n\tP.authorization_code,\n\tP.transaction_sequence_number AS transaction_sequence_number,\n\tP.local_datetime AS transaction_date_time,\n\tP.primary_track AS transaction_primary_track,\n\tP.batch_id AS batch_id,\n\tP.controller_type AS controller_type,\n\tNULL AS transaction_product_input_type,\n\tNULL AS transaction_product_name,\n\tNULL AS transaction_product_code,\n\tNULL AS transaction_product_unit_price,\n\tNULL AS transaction_product_quantity,\n\tNULL AS transaction_product_amount,\n\t'PreAuthorization' AS type\nFROM\n\tpre_authorization AS P"
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'efb4c241e0c7588ef5dce0c7c416551b')"
+    ]
+  }
+}

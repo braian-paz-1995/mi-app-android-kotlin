@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Si querés mapear toda la SD -->
+    <external-path
+        name="external_root"
+        path="." />
+
+    <!-- Si además querés rutas por app / flavors -->
+    <external-path
+        name="external_files_androidPhone_app"
+        path="Android/data/com.ationet.androidterminal.androidPhone/files/" />
+
+</paths>

@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.ationet.androidterminal">
+
+    <!-- PERMISOS (Algunos solo funcionarán si la app está firmada con llave de sistema o instalada como app del sistema) -->
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.BIND_JOB_SERVICE" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="com.verifone.permissions.ACCESS_ANDROID_LOGS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.START_ACTIVITIES_FROM_BACKGROUND" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SET_TIME" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SET_TIME_ZONE" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <application>
+
+        <!-- Inicializador de DeviceInitializer -->
+        <provider
+                android:name="androidx.startup.InitializationProvider"
+                android:authorities="${applicationId}.androidx-startup"
+                android:exported="false">
+            <meta-data
+                    android:name="com.ationet.androidterminal.initialization.DeviceInitializer"
+                    android:value="androidx.startup" />
+        </provider>
+
+        <!-- Provider para compartir archivos de manera segura -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+    </application>
+
+</manifest>
