@@ -1,20 +1,50 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.android.dagger.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.example.app"
+    namespace = "com.ationet.androidterminal"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.app"
-        minSdk = 24
+        applicationId = "com.ationet.androidterminal"
+        minSdk = 21
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 36
+        versionName = "2.1.7"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+
+    flavorDimensions += "platform"
+    productFlavors {
+        create("newland") {
+            dimension = "platform"
+            applicationIdSuffix = ".newland"
+        }
+
+        create("urovo") {
+            dimension = "platform"
+            applicationIdSuffix = ".urovo"
+        }
+
+        create("t650p") {
+            dimension = "platform"
+            applicationIdSuffix = ".t650p"
+            minSdk = 27
+        }
+        create("AndroidPhone") {
+            dimension = "platform"
+            applicationIdSuffix = ".androidPhone"
+        }
     }
 
     buildTypes {
@@ -26,68 +56,154 @@ android {
             )
         }
     }
-
-
-    flavorDimensions += "environment"
-
-    productFlavors {
-        create("dev") {
-            dimension = "environment"
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-        }
-        create("qa") {
-            dimension = "environment"
-            applicationIdSuffix = ".qa"
-            versionNameSuffix = "-qa"
-        }
-        create("prod") {
-            dimension = "environment"
-        }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
-
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
-
-    kotlinOptions {
-        jvmTarget = "17"
+    composeCompiler {
+        enableStrongSkippingMode = true
     }
-}
-
-ksp {
-    arg("room.generateKotlin", "true")
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
-    implementation(project(":core"))
 
-    val composeBom = platform("androidx.compose:compose-bom:2024.02.01")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.media3:media3-exoplayer:1.3.1")
-    implementation("androidx.media3:media3-ui:1.3.1")
-    implementation("androidx.media3:media3-common:1.3.1")
+    //
+    val newlandImplementation = "newlandImplementation"
+    val urovoImplementation = "urovoImplementation"
+    val t650pImplementation = "t650pImplementation"
+    val androidPhoneImplementation = "androidPhoneImplementation"
 
-    implementation("androidx.biometric:biometric:1.2.0-alpha05")
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("io.coil-kt:coil-gif:2.4.0")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.room:room-runtime:2.7.0-alpha11")
-    implementation("androidx.room:room-ktx:2.7.0-alpha11")
-    ksp("androidx.room:room-compiler:2.7.0-alpha11")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.appcompat)
+    testImplementation(kotlin("test"))
+    androidTestImplementation(kotlin("test"))
+
+    newlandImplementation(files("libs/MESDK-3.10.54-RELEASE.aar"))
+    urovoImplementation(files("libs/urovosdkLibs_New_v1.0.3.aar"))
+    t650pImplementation(files("libs/MESDK-3.10.54-RELEASE.aar"))
+    t650pImplementation(libs.androidx.room.common.jvm)
+    t650pImplementation(files("libs/PaymentSDK-3.68.3-sdi.aar"))
+    t650pImplementation(files("libs/UpdateServiceLib-0.1.271.aar"))
+    t650pImplementation(files("libs/UsbConnManLib-1.0.63.aar"))
+    t650pImplementation(libs.androidx.junit.ktx)
+
+
+    /* Log Module */
+    implementation(project(":log"))
+
+    /* Terminal Management Module */
+    implementation(files("libs/AtioSyncKit-release-0.0.3.0.aar"))
+
+    /* EMV NFC Pay card Enrollment */
+    implementation(libs.devnied.emvnfccard.library)
+
+    /* Hilt */
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
+    /* Hilt navigation compose */
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    /* Kotlin Serialization */
+    implementation(libs.kotlinx.serialization.json)
+
+    /* Ktor */
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
+
+    /* DataStore */
+    implementation(libs.androidx.datastore.preferences)
+
+    /* Constraint Layout*/
+    implementation(libs.androidx.constraintlayout.compose)
+
+    /* Lottie Animation */
+    implementation(libs.lottie.compose)
+
+    /* Navigation compose */
+    implementation(libs.androidx.navigation.compose)
+
+    /* Room */
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+
+    /* Paging */
+    implementation(libs.androidx.paging)
+    implementation(libs.androidx.paging.ktx)
+    implementation(libs.androidx.paging.compose)
+
+    /* Camera */
+    implementation(libs.accompanist.permissions)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.camera2)
+
+    /* Date-time */
+    implementation(libs.kotlinx.datetime)
+
+    /* QR and camera */
+    implementation(libs.core)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.barcode.scanning)
+    implementation(libs.androidx.camera.mlkit.vision)
+
+    /* Desugar JDK libs */
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    /* Camera 2*/
+    implementation(libs.androidx.camera.camera2)
+
+    /* Worker */
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+
+}
+
+class RoomSchemaArgProvider(
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    private val schemaDir: File
+) : CommandLineArgumentProvider {
+
+    override fun asArguments(): Iterable<String> {
+        return listOf("room.schemaLocation=${schemaDir.path}")
+    }
 }
