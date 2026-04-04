@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,8 +35,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.unit.dp
-import com.example.app.ui.AppRoot
-import com.example.app.ui.AppViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.app.menu.AppRoot
+import com.example.app.menu.AppViewModel
 
 class MainActivity : FragmentActivity() {
 
@@ -84,7 +86,6 @@ class MainActivity : FragmentActivity() {
             }
 
             if (isAuthenticated) {
-                // 🔓 APP PRINCIPAL
                 AppRoot(
                     state = state,
                     onLogin = viewModel::login,
@@ -94,7 +95,7 @@ class MainActivity : FragmentActivity() {
                         if (!hasCameraPermission) {
                             cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
                         } else {
-                            startActivity(Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE))
+                            startActivity(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
                         }
                     },
                     onToggleFlashlight = {
@@ -111,7 +112,6 @@ class MainActivity : FragmentActivity() {
                 )
 
             } else {
-                // 🔒 LOCK SCREEN
                 LockScreen(
                     onAuthenticated = { isAuthenticated = true }
                 )
@@ -124,11 +124,11 @@ class MainActivity : FragmentActivity() {
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {}
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                Toast.makeText(context, "No hay sensor biométrico", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.biometric_no_hardware), Toast.LENGTH_LONG).show()
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                Toast.makeText(context, "Sensor no disponible", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.biometric_hw_unavailable), Toast.LENGTH_LONG).show()
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
-                Toast.makeText(context, "Registrá una huella o PIN", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, context.getString(R.string.biometric_none_enrolled), Toast.LENGTH_LONG).show()
         }
     }
 }
@@ -137,14 +137,14 @@ class MainActivity : FragmentActivity() {
 fun LockScreen(onAuthenticated: () -> Unit) {
     val context = LocalContext.current
 
-    fun iniciarAutenticacion() {
+    fun initialAuthentication() {
         autenticarConHuella(context) { success ->
             if (success) onAuthenticated()
         }
     }
 
     LaunchedEffect(Unit) {
-        iniciarAutenticacion()
+        initialAuthentication()
     }
 
     Box(
@@ -161,15 +161,15 @@ fun LockScreen(onAuthenticated: () -> Unit) {
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Acceso protegido",
+                text = stringResource(R.string.lock_screen_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.White
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { iniciarAutenticacion() }) {
-                Text("Reintentar")
+            Button(onClick = { initialAuthentication() }) {
+                Text(stringResource(R.string.retry_button))
             }
         }
     }
@@ -187,17 +187,17 @@ fun autenticarConHuella(context: Context, onResult: (Boolean) -> Unit) {
             }
 
             override fun onAuthenticationFailed() {
-                Toast.makeText(context, "Huella no reconocida", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.auth_failed), Toast.LENGTH_SHORT).show()
             }
 
             override fun onAuthenticationError(code: Int, msg: CharSequence) {
-                Toast.makeText(context, "Error: $msg", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.auth_error, msg), Toast.LENGTH_SHORT).show()
             }
         })
 
     val promptInfo = BiometricPrompt.PromptInfo.Builder()
-        .setTitle("Seguridad")
-        .setSubtitle("Autenticación requerida")
+        .setTitle(context.getString(R.string.auth_dialog_title))
+        .setSubtitle(context.getString(R.string.auth_dialog_subtitle))
         .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
         .build()
 

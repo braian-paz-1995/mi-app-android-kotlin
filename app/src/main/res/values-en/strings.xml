@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">I am tired</string>
+    <string name="nfc_hce_service_description">NFC HCE Service</string>
+    <string name="nfc_hce_aid_group_description">NFC AID Group</string>
+    <string name="biometric_no_hardware">No biometric sensor found</string>
+    <string name="biometric_hw_unavailable">Biometric sensor unavailable</string>
+    <string name="biometric_none_enrolled">Register a fingerprint or PIN</string>
+    <string name="lock_screen_title">Protected access</string>
+    <string name="retry_button">Retry</string>
+    <string name="auth_failed">Fingerprint not recognized</string>
+    <string name="auth_error">Error: %1$s</string>
+    <string name="auth_dialog_title">Security</string>
+    <string name="auth_dialog_subtitle">Authentication required</string>
+</resources>
