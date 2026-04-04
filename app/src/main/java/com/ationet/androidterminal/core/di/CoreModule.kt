@@ -30,14 +30,6 @@ import com.ationet.androidterminal.core.data.local.room.task.ReverseCCDao
 import com.ationet.androidterminal.core.data.local.room.tm.ModulesCapabilityDao
 import com.ationet.androidterminal.core.data.local.room.tm.PaymentMethodDao
 import com.ationet.androidterminal.core.data.repository.BatchRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.FusionPumpLockRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.LoyaltyBatchRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.LoyaltyVoidRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.ModulesCapabilityRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.PaymentMethodRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.ReceiptRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.TransactionRepositoryImpl
-import com.ationet.androidterminal.core.data.repository.VoidRepositoryImpl
 import com.ationet.androidterminal.core.domain.model.preauthorization.PreAuthorizationFusion
 import com.ationet.androidterminal.core.domain.model.preauthorization.PreAuthorizationStandalone
 import com.ationet.androidterminal.core.domain.repository.BatchRepository
