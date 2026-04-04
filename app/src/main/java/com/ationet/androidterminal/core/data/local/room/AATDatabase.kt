@@ -38,17 +38,7 @@ import com.ationet.androidterminal.core.data.local.room.fleet.CompletionDao
 import com.ationet.androidterminal.core.data.local.room.fleet.PreAuthorizationDao
 import com.ationet.androidterminal.core.data.local.room.fleet.SaleDao
 import com.ationet.androidterminal.core.data.local.room.fleet.VoidDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyAccumulationDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyBalanceEnquiryDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyBatchDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyPointsRedemptionDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyRewardsRedemptionDao
-import com.ationet.androidterminal.core.data.local.room.loyalty.LoyaltyVoidDao
-import com.ationet.androidterminal.core.data.local.room.task.BatchDao
-import com.ationet.androidterminal.core.data.local.room.task.RechargeCCDao
-import com.ationet.androidterminal.core.data.local.room.task.ReverseCCDao
-import com.ationet.androidterminal.core.data.local.room.tm.ModulesCapabilityDao
-import com.ationet.androidterminal.core.data.local.room.tm.PaymentMethodDao
+
 
 
 @Database(
@@ -112,57 +102,11 @@ abstract class AATDatabase : RoomDatabase() {
      * */
     abstract val saleDao: SaleDao
 
-    /**
-     * ReverseCC's Data Access Object
-     * */
-    abstract val reverseCCDao: ReverseCCDao
-
-    /**
-     * RechargeCC's Data Access Object
-     * */
-    abstract val rechargeCCDao: RechargeCCDao
-
-    /**
-     * LoyaltyAccumulation's Data Access Object
-     * */
-    abstract val loyaltyAccumulationDao: LoyaltyAccumulationDao
-
-    /**
-     * LoyaltyBalanceEnquiry's Data Access Object
-     * */
-    abstract val loyaltyBalanceEnquiryDao: LoyaltyBalanceEnquiryDao
-    /**
-     * loyaltyPointsRedemption's Data Access Object
-     * */
-    abstract val loyaltyPointsRedemptionDao: LoyaltyPointsRedemptionDao
-    /**
-     * loyaltyPointsRedemption's Data Access Object
-     * */
-    abstract val loyaltyRewardsRedemptionDao: LoyaltyRewardsRedemptionDao
-
-    /**
-     * Void's Data Access Object
-     * */
-    abstract val loyaltyVoidDao: LoyaltyVoidDao
-    /**
-     *
-     * PaymentMethod's Data Access Object
-     * */
-    abstract val paymentMethodDao: PaymentMethodDao
 
     /**
      * Void's Data Access Object
      * */
     abstract val voidDao: VoidDao
-
-    /**
-     * Batch's Data Access Object
-     * */
-    abstract val batchDao: BatchDao
-    /**
-     * Loyalty Batch's Data Access Object
-     * */
-    abstract val loyaltyBatchDao: LoyaltyBatchDao
 
 
     /**
@@ -170,10 +114,7 @@ abstract class AATDatabase : RoomDatabase() {
      * */
     abstract val transactionDao: TransactionDao
 
-    /**
-     * Data Access Objets for common transaction data
-     * */
-    abstract val modulesCapabilityDao: ModulesCapabilityDao
+
     /**
      * Data Access Objets for common transaction data
      * */
